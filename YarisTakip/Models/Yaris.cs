@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
+using YarisTakip.Data.Enum;
 
 namespace YarisTakip.Models
 {
@@ -17,6 +18,6 @@ namespace YarisTakip.Models
         public YarisKategori YarisKategori { get; set; }
         [ForeignKey("Kullanici")]
         public int? KullaniciId { get; set; }
-        public Kullanici? Kullanici { get; set; }
+        public Kullanici? Kullanici  { get; set; }
     }
 }
