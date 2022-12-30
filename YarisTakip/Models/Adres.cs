@@ -8,6 +8,6 @@ namespace YarisTakip.Models
         public int Id { get; set; }
         public string Sokak { get; set; }
         public string Sehir { get; set; }
-        public string Ulke { get; set; }
+        public string Ulke { get; set; } 
     }
 }
