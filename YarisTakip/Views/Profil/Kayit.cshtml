@@ -1,27 +1,31 @@
 ﻿@using YarisTakip.ViewModel
-@model GirisViewModel
+@model KayitViewModel
 
 @{
-    ViewData["Title"] = "Giriş";
+    ViewData["Title"] = "Kayıt Ol";
 }
+
 <div class="row">
     <div class="col-md-6 offset-3">
         <p>
-            <h4>Hesabınızı giriş yapınız</h4>
+            <h4>Yeni bir hesap için kayıt olunuz.</h4>
         </p>
+
         @if (TempData["Error"] != null)
         {
             <div class="col-md-12 alert alert-danger">
-                <span><b>Üzgünüz!</b> - @TempData["Error"]</span>
+                <span><b>Üzgünüz!</b> - @TempData["Error"] </span>
             </div>
         }
+
         <div class="row">
             <div class="col-md-8 offset-2">
-                <form asp-action="Giris">
+                <form asp-action="Kayit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
                     <div class="form-group">
                         <label asp-for="EmailAdres" class="control-label"></label>
-                        <input asp-for="EmailAdres" class="form-control">
+                        <input asp-for="EmailAdres" class="form-control" />
                         <span asp-validation-for="EmailAdres" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -30,8 +34,14 @@
                         <span asp-validation-for="Sifre" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <input class="btn btn-outline-success float right" type="submit" value="Giris Yap" />
-                        <a class="btn btn-outline-secondary" asp-controller="Yaris" asp-action="Index">İptal</a>
+                        <label asp-for="SifreOnayla" class="control-label"></label>
+                        <input asp-for="SifreOnayla" class="form-control" />
+                        <span asp-validation-for="SifreOnayla" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input class="btn btn-outline-success float-right" type="submit" value="Kayıt ol" />
+                        <a class="btn btn-outline-secondary" asp-controller="Yaris" asp-action="Index">Cancel</a>
                     </div>
                 </form>
             </div>

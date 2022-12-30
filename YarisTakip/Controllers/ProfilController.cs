@@ -33,24 +33,58 @@ namespace YarisTakip.Controllers
 
             if (kullanici != null)
             {
-                //User is found, check password
-                var passwordCheck = await _kullaniciManager.CheckPasswordAsync(kullanici, girisViewModel.Sifre);
-                if (passwordCheck)
+                var sifreOnayı = await _kullaniciManager.CheckPasswordAsync(kullanici, girisViewModel.Sifre);
+                if (sifreOnayı)
                 {
-                    //Password correct, sign in
                     var result = await _signInManager.PasswordSignInAsync(kullanici, girisViewModel.Sifre, false, false);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Index", "Yaris");
                     }
                 }
-                //Password is incorrect
                 TempData["Error"] = "Lütfen Tekrar Deneyiniz";
                 return View(girisViewModel);
             }
-            //User not found
-            TempData["Error"] = "Lütfen Tekrar Deneyiniz";
+            TempData["Error"] = "Böyle bir kullanıcı yok";
             return View(girisViewModel);
+        }
+
+        public IActionResult Kayit()
+        {
+            var response = new KayitViewModel();
+            return View(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Kayit(KayitViewModel kayitViewModel)
+        {
+            if (!ModelState.IsValid) return View(kayitViewModel);
+
+            var kullanici = await _kullaniciManager.FindByEmailAsync(kayitViewModel.EmailAdres);
+            if (kullanici != null)
+            {
+                TempData["Error"] = "Bu email kullanılmaktadır";
+                return View(kayitViewModel);
+            }
+
+            var yeniKullanici = new Kullanici()
+            {
+                Email = kayitViewModel.EmailAdres,
+                UserName = kayitViewModel.EmailAdres
+            };
+            var yenikullaniciResponse = await _kullaniciManager.CreateAsync(yeniKullanici, kayitViewModel.Sifre);
+
+            if (yenikullaniciResponse.Succeeded)
+                await _kullaniciManager.AddToRoleAsync(yeniKullanici, KullaniciRolleri.Kullanici);
+
+            return RedirectToAction("Index", "Yaris");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Cikis()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Yaris");
         }
     }
 }

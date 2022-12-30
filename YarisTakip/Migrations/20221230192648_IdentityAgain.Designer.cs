@@ -12,8 +12,8 @@ using YarisTakip.Data;
 namespace YarisTakip.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221230181002_Identity")]
-    partial class Identity
+    [Migration("20221230192648_IdentityAgain")]
+    partial class IdentityAgain
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -191,7 +191,7 @@ namespace YarisTakip.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AdresId")
+                    b.Property<int>("AdresId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -351,7 +351,9 @@ namespace YarisTakip.Migrations
                 {
                     b.HasOne("YarisTakip.Models.Adres", "Adres")
                         .WithMany()
-                        .HasForeignKey("AdresId");
+                        .HasForeignKey("AdresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Adres");
                 });
