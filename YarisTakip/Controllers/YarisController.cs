@@ -1,17 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Net;
 using YarisTakip.Interfaces;
 using YarisTakip.Models;
+using YarisTakip.ViewModel;
 
 namespace YarisTakip.Controllers
 {
     public class YarisController : Controller
     {
         private readonly IYarisRepository _yarisRespository;
+        private readonly IResimService _resimService;
 
-        public YarisController(IYarisRepository yarisRespository)
+        public YarisController(IYarisRepository yarisRespository, IResimService resimService)
         {
             _yarisRespository = yarisRespository;
+            _resimService = resimService;
         }
         public async Task<IActionResult> Index()
         {
@@ -29,14 +34,32 @@ namespace YarisTakip.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Yaris yaris)
+        public async Task<IActionResult> Create(CreateYarisViewModel yarisVM)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(yaris);
+                var result = await _resimService.AddPhotoAsync(yarisVM.Resim);
+
+                var yaris = new Yaris
+                {
+                    Baslik = yarisVM.Baslik,
+                    Aciklama = yarisVM.Aciklama,
+                    Resim = result.Url.ToString(),
+                    Adres = new Adres
+                    {
+                        Sokak = yarisVM.Adres.Sokak,
+                        Sehir = yarisVM.Adres.Sehir,
+                        Ulke = yarisVM.Adres.Ulke,
+                    }
+                };
+                _yarisRespository.Add(yaris);
+                return RedirectToAction("Index");
             }
-            _yarisRespository.Add(yaris);
-            return RedirectToAction("Index");
+            else
+            {
+                ModelState.AddModelError("", "Photo upload failed");
+            }
+            return View(yarisVM);
         }
     }
 }

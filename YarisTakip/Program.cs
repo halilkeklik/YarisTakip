@@ -1,17 +1,22 @@
 using Microsoft.EntityFrameworkCore;
 using YarisTakip.Data;
+using YarisTakip.Helpers;
 using YarisTakip.Interfaces;
 using YarisTakip.Repository;
+using YarisTakip.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IYarisRepository, YarisRepository>();
+builder.Services.AddScoped<IResimService, ResimService>();
+builder.Services.Configure<CloudinaryAyarlari>(builder.Configuration.GetSection("CloudinaryAyarlari"));
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddScoped<IYarisRepository, YarisRepository>();
+
 
 var app = builder.Build();
 
