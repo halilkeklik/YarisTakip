@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using YarisTakip.Interfaces;
 using YarisTakip.Models;
 
@@ -21,6 +22,21 @@ namespace YarisTakip.Controllers
         {
             Yaris yaris = await _yarisRespository.GetByIdAsync(id);
             return View(yaris);
+        }
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Yaris yaris)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(yaris);
+            }
+            _yarisRespository.Add(yaris);
+            return RedirectToAction("Index");
         }
     }
 }
