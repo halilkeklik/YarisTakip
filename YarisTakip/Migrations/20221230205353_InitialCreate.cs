@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace YarisTakip.Migrations
 {
     /// <inheritdoc />
-    public partial class IdentityAgain : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,7 +47,7 @@ namespace YarisTakip.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     KosuHizi = table.Column<int>(type: "int", nullable: true),
                     Mesafe = table.Column<int>(type: "int", nullable: true),
-                    AdresId = table.Column<int>(type: "int", nullable: false),
+                    AdresId = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -70,8 +70,7 @@ namespace YarisTakip.Migrations
                         name: "FK_AspNetUsers_Adresler_AdresId",
                         column: x => x.AdresId,
                         principalTable: "Adresler",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

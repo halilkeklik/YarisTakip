@@ -70,7 +70,7 @@ namespace YarisTakip.Controllers
             {
                 Baslik = yaris.Baslik,
                 Aciklama = yaris.Aciklama,
-                AdresId = yaris.AdresId,
+                AdresId = (int)yaris.AdresId,
                 Adres = yaris.Adres,
                 URL = yaris.Resim,
                 YarisKategori = yaris.YarisKategori

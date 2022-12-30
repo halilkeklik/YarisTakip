@@ -188,7 +188,7 @@ namespace YarisTakip.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("AdresId")
+                    b.Property<int?>("AdresId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -348,9 +348,7 @@ namespace YarisTakip.Migrations
                 {
                     b.HasOne("YarisTakip.Models.Adres", "Adres")
                         .WithMany()
-                        .HasForeignKey("AdresId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AdresId");
 
                     b.Navigation("Adres");
                 });
