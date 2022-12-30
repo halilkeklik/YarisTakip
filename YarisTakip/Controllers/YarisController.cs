@@ -1,27 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
-using YarisTakip.Data;
+using YarisTakip.Interfaces;
 using YarisTakip.Models;
 
 namespace YarisTakip.Controllers
 {
     public class YarisController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly IYarisRepository _yarisRespository;
 
-        public YarisController(AppDbContext context)
+        public YarisController(IYarisRepository yarisRespository)
         {
-            _context = context;
+            _yarisRespository = yarisRespository;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Yaris> yaris = _context.Yarislar.ToList();
-            return View(yaris);
+            IEnumerable<Yaris> yarislar = await _yarisRespository.GetAll();
+            return View(yarislar);
         }
-        public IActionResult Detail(int id)
+        public async Task<IActionResult> Detail(int id)
         {
-            Yaris yaris = _context.Yarislar.Include(a => a.Adres).FirstOrDefault(c => c.Id == id);
+            Yaris yaris = await _yarisRespository.GetByIdAsync(id);
             return View(yaris);
         }
     }
