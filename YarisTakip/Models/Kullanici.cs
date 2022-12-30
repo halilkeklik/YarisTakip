@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace YarisTakip.Models
 {
-    public class Kullanici
+    public class Kullanici : IdentityUser
     {
-        [Key]
-        public int Id { get; set; }
         public int? KosuHizi { get; set; }
         public int? Mesafe { get; set; }
         public Adres? Adres { get; set; }

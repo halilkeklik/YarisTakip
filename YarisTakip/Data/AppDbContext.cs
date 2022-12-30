@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using YarisTakip.Models;
 
 namespace YarisTakip.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<Kullanici>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

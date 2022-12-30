@@ -17,7 +17,7 @@ namespace YarisTakip.Models
         public Adres Adres { get; set; }
         public YarisKategori YarisKategori { get; set; }
         [ForeignKey("Kullanici")]
-        public int? KullaniciId { get; set; }
+        public string? KullaniciId { get; set; }
         public Kullanici? Kullanici  { get; set; }
     }
 }

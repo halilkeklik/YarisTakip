@@ -12,7 +12,7 @@ using YarisTakip.Data;
 namespace YarisTakip.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221230155034_InitialCreate")]
+    [Migration("20221230180808_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -52,11 +52,8 @@ namespace YarisTakip.Migrations
 
             modelBuilder.Entity("YarisTakip.Models.Kullanici", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("AdresId")
                         .HasColumnType("int");
@@ -93,8 +90,8 @@ namespace YarisTakip.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("KullaniciId")
-                        .HasColumnType("int");
+                    b.Property<string>("KullaniciId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Resim")
                         .HasColumnType("nvarchar(max)");

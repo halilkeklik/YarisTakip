@@ -29,8 +29,7 @@ namespace YarisTakip.Migrations
                 name: "Kullanici",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     KosuHizi = table.Column<int>(type: "int", nullable: true),
                     Mesafe = table.Column<int>(type: "int", nullable: true),
                     AdresId = table.Column<int>(type: "int", nullable: true)
@@ -56,7 +55,7 @@ namespace YarisTakip.Migrations
                     Resim = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AdresId = table.Column<int>(type: "int", nullable: false),
                     YarisKategori = table.Column<int>(type: "int", nullable: false),
-                    KullaniciId = table.Column<int>(type: "int", nullable: true)
+                    KullaniciId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
