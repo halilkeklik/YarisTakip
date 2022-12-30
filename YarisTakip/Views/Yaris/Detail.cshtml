@@ -1,0 +1,33 @@
+﻿@model Yaris
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="container">
+
+    <h1 class="my-4">
+        Page Heading
+        <small>Secondary Text</small>
+    </h1>
+
+    <div class="row">
+
+        <div class="col-md-8">
+            <img class="img-fluid" src="@Model.Resim" alt="">
+        </div>
+
+        <div class="col-md-4">
+            <h3 class="my-3">@Model.Baslik</h3>
+            <p>@Model.Aciklama</p>
+            <h3 class="my-3">Adres</h3>
+            <ul>
+                <li>@Model.Adres.Sehir</li>
+                <li>@Model.Adres.Ulke</li>
+                <li>@Model.YarisKategori</li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<!-- /.container -->

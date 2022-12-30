@@ -11,10 +11,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 var app = builder.Build();
-if (args.Length == 1 && args[0].ToLower() == "tohumdata")
-{
-    IlkData.TohumData(app);
-}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -33,6 +29,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Yaris}/{action=Index}/{id?}");
 
 app.Run();
