@@ -61,5 +61,69 @@ namespace YarisTakip.Controllers
             }
             return View(yarisVM);
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var yaris = await _yarisRespository.GetByIdAsync(id);
+            if (yaris == null) return View("Error");
+            var clubVM = new EditYarisViewModel
+            {
+                Baslik = yaris.Baslik,
+                Aciklama = yaris.Aciklama,
+                AdresId = yaris.AdresId,
+                Adres = yaris.Adres,
+                URL = yaris.Resim,
+                YarisKategori = yaris.YarisKategori
+            };
+            return View(clubVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditYarisViewModel yarisVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Failed to edit race");
+                return View("Edit", yarisVM);
+            }
+
+            var kullaniciYaris = await _yarisRespository.GetByIdAsyncNoTracking(id);
+
+            if (kullaniciYaris != null)
+            {
+                try
+                {
+                    await _resimService.DeletePhotoAsync(kullaniciYaris.Resim);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Could not delete photo");
+                    return View(yarisVM);
+                }
+                var photoResult = await _resimService.AddPhotoAsync(yarisVM.Resim);
+
+
+                var yaris = new Yaris
+                {
+                    Id = id,
+                    Baslik = yarisVM.Baslik,
+                    Aciklama = yarisVM.Aciklama,
+                    Resim = photoResult.Url.ToString(),
+                    AdresId = yarisVM.AdresId,
+                    Adres = yarisVM.Adres,
+                    YarisKategori = yarisVM.YarisKategori
+                };
+
+                _yarisRespository.Update(yaris);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(yarisVM);
+            }
+
+
+        }
     }
 }

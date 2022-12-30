@@ -15,15 +15,15 @@ namespace YarisTakip.Repository
             _context = context;
         }
 
-        public bool Add(Yaris race)
+        public bool Add(Yaris yaris)
         {
-            _context.Add(race);
+            _context.Add(yaris);
             return Save();
         }
 
-        public bool Delete(Yaris race)
+        public bool Delete(Yaris yaris)
         {
-            _context.Remove(race);
+            _context.Remove(yaris);
             return Save();
         }
 
@@ -39,7 +39,11 @@ namespace YarisTakip.Repository
 
         public async Task<Yaris> GetByIdAsync(int id)
         {
-            return await _context.Yarislar.Include(i => i.Adres).FirstOrDefaultAsync();
+            return await _context.Yarislar.Include(i => i.Adres).FirstOrDefaultAsync(i => i.Id == id);
+        }
+        public async Task<Yaris> GetByIdAsyncNoTracking(int id)
+        {
+            return await _context.Yarislar.Include(i => i.Adres).AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public bool Save()
@@ -48,9 +52,9 @@ namespace YarisTakip.Repository
             return saved > 0 ? true : false;
         }
 
-        public bool Update(Yaris race)
+        public bool Update(Yaris yaris)
         {
-            _context.Update(race);
+            _context.Update(yaris);
             return Save();
         }
     }
