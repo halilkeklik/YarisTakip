@@ -1,0 +1,51 @@
+﻿@using YarisTakip.Data.Enum
+@model Yaris
+
+<h1>Are you sure you want to delete this race?</h1>
+
+<form method="post" asp-action="Delete" enctype="multipart/form-data">
+    <input type="hidden" value="AddressId" id="AddressId" />
+    <div class="form-group">
+        <label asp-for="Baslik">Baslik</label>
+        <input asp-for="Baslik" class="form-control" placeholder="Baslik">
+        <span asp-validation-for="Baslik" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Aciklama">Aciklama</label>
+        <input asp-for="Aciklama" class="form-control" placeholder="Aciklama">
+        <span asp-validation-for="Aciklama" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Resim">Resim</label>
+        <input asp-for="Resim" type="file" class="form-control" placeholder="Resim">
+        <span asp-validation-for="Resim" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="YarisKategori">YarisKategori</label>
+        <select asp-for="YarisKategori" asp-items="@Html.GetEnumSelectList<YarisKategori>()" class="form-control">
+            <option selected="selected" value="">--Select--</option>
+        </select>
+        <span asp-validation-for="YarisKategori" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Adres.Sokak">Sokak</label>
+        <input asp-for="Adres.Sokak" class="form-control" placeholder="Sokak">
+        <span asp-validation-for="Adres.Sokak" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Adres.Sehir">City</label>
+        <input asp-for="Adres.Sehir" class="form-control" placeholder="Sehir">
+        <span asp-validation-for="Adres.Sehir" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Adres.Ulke">Ulke</label>
+        <input asp-for="Adres.Ulke" class="form-control" placeholder="Ulke">
+        <span asp-validation-for="Adres.Ulke" class="text-danger"></span>
+    </div>
+</form>
+<div class="form-group">
+    <form action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Confirm" class="btn btn-danger float-right mt-3" />
+    </form>
+</div>

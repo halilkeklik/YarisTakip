@@ -122,8 +122,22 @@ namespace YarisTakip.Controllers
             {
                 return View(yarisVM);
             }
+        }
+        public async Task<IActionResult> Delete(int id)
+        {
+            var yarisDetails = await _yarisRespository.GetByIdAsync(id);
+            if (yarisDetails == null) return View("Error");
+            return View(yarisDetails);
+        }
 
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteClub(int id)
+        {
+            var yarisDetails = await _yarisRespository.GetByIdAsync(id);
+            if (yarisDetails == null) return View("Error");
 
+            _yarisRespository.Delete(yarisDetails);
+            return RedirectToAction("Index");
         }
     }
 }
