@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,7 +25,11 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-
+                            <li class="nav-item">
+                                <form asp-area="" asp-controller="Kullanici" asp-action="Profil" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier).Value">
+                                    <button class="btn btn-outline-primary">Profil</button>
+                                </form>
+                            </li>
                             @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
                             {
                                 <li class="nav-item">
