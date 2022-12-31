@@ -14,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IYarisRepository, YarisRepository>();
 builder.Services.AddScoped<IResimService, ResimService>();
+builder.Services.AddScoped<IKullaniciRepository, KullaniciRepository>();
 builder.Services.Configure<CloudinaryAyarlari>(builder.Configuration.GetSection("CloudinaryAyarlari"));
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
@@ -43,6 +44,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
