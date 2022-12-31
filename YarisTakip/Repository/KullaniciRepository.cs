@@ -31,7 +31,7 @@ namespace YarisTakip.Repository
 
         public async Task<Kullanici> GetUserById(string id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users.FirstOrDefaultAsync(i => i.Id == id); 
         }
 
         public bool Save()

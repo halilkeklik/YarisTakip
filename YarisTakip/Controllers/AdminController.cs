@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using YarisTakip.Interfaces;
 using YarisTakip.Models;
 using YarisTakip.Services;
+using YarisTakip.ViewModel;
 
 namespace YarisTakip.Controllers
 {
@@ -23,8 +24,20 @@ namespace YarisTakip.Controllers
         }
         public async Task<IActionResult> Kullanicilar()
         {
-            IEnumerable<Kullanici> kullanicilar = await _kullaniciRepository.GetAllUsers();
-            return View(kullanicilar);
+            var kullanici = await _kullaniciRepository.GetAllUsers();
+            List<KullaniciViewModel> result = new List<KullaniciViewModel>();
+            foreach (var user in kullanici)
+            {
+                var kullaniciViewModel = new KullaniciViewModel()
+                {
+                    Id = user.Id,
+                    KullaniciAdi = user.UserName,
+                    KosuHizi = user.KosuHizi,
+                    Mesafe = user.Mesafe,
+                };
+                result.Add(kullaniciViewModel);
+            }
+            return View(result);
         }
 
     }

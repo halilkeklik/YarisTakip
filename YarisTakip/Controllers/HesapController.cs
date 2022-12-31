@@ -6,12 +6,12 @@ using YarisTakip.ViewModel;
 
 namespace YarisTakip.Controllers
 {
-    public class ProfilController : Controller
+    public class HesapController : Controller
     {
         private readonly UserManager<Kullanici> _kullaniciManager;
         private readonly SignInManager<Kullanici> _signInManager;
         private readonly AppDbContext _context;
-        public ProfilController(UserManager<Kullanici> userManager, SignInManager<Kullanici> signInManager, AppDbContext context)
+        public HesapController(UserManager<Kullanici> userManager, SignInManager<Kullanici> signInManager, AppDbContext context)
         {
             _context = context;
             _signInManager = signInManager;
