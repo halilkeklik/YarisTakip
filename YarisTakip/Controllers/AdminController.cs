@@ -46,70 +46,17 @@ namespace YarisTakip.Controllers
             return View(result);
         }
 
-        private void MapUserEdit(Kullanici kullanici, EditKullaniciViewModel editVM, ImageUploadResult photoResult)
+        public  ActionResult KullaniciSil(string id)
         {
-            kullanici.Id = editVM.Id;
-            kullanici.KosuHizi = editVM.KosuHizi;
-            kullanici.Mesafe = editVM.Mesafe;
-            kullanici.ProfilResimUrl = photoResult.Url.ToString();
-        }
-
-        public async Task<IActionResult> EditKullanici()
-        {
-            var curUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var kullanici = await _kullaniciRepository.GetUserById(curUserId);
-            if (kullanici == null) return View("Error");
-            var editUserViewModel = new EditKullaniciViewModel()
+            using(var client=new HttpClient())
             {
-                Id = curUserId,
-                KosuHizi = kullanici.KosuHizi,
-                Mesafe = kullanici.Mesafe,
-                ProfilResimURL = kullanici.ProfilResimUrl
-            };
-            return View(editUserViewModel);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> EditKullanici(EditKullaniciViewModel editVM)
-        {
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Failed to edit profile");
-                return View("EditKullanici", editVM);
+                client.BaseAddress = new Uri("https://localhost:7119/api/");
+                var deleteTask = client.DeleteAsync("KullaniciSilmeAPI/" + id);
+                var result = deleteTask.Result;
+                if (result.IsSuccessStatusCode)
+                    return RedirectToAction("Kullanicilar");
             }
-
-            Kullanici kullanici = await _kullaniciRepository.GetUserById(editVM.Id);
-
-            if (kullanici.ProfilResimUrl == "" || kullanici.ProfilResimUrl == null)
-            {
-
-                var photoResult = await _resimService.AddPhotoAsync(editVM.Resim);
-
-                MapUserEdit(kullanici, editVM, photoResult);
-
-                _kullaniciRepository.Update(kullanici);
-
-                return RedirectToAction("Index", "Yaris");
-            }
-            else
-            {
-                try
-                {
-                    await _resimService.DeletePhotoAsync(kullanici.ProfilResimUrl);
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", "Could not delete photo");
-                    return View(editVM);
-                }
-                var photoResult = await _resimService.AddPhotoAsync(editVM.Resim);
-
-                MapUserEdit(kullanici, editVM, photoResult);
-
-                _kullaniciRepository.Update(kullanici);
-
-                return RedirectToAction("Index", "Yaris");
-            }
+            return RedirectToAction("Kullanicilar");
         }
 
     }

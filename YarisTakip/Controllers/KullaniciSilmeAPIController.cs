@@ -30,17 +30,6 @@ namespace YarisTakip.Controllers
             }
             return y;
         }
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Kullanici>> Get(string id)
-        {
-            var y = await _context.Kullanicilar.FirstOrDefaultAsync(x => x.Id == id);
-            if (y is null)
-            {
-                return NoContent();
-            }
-            return y;
-        }
-
         [HttpPost]
         public IActionResult Post([FromBody] Kullanici k)
         {
@@ -50,7 +39,7 @@ namespace YarisTakip.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Sil(string id)
         {
             var kullanici = await _kullaniciRepository.GetUserById(id);
             _context.Remove(kullanici);
