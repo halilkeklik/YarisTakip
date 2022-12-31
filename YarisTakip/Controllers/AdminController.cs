@@ -89,7 +89,7 @@ namespace YarisTakip.Controllers
 
                 _kullaniciRepository.Update(kullanici);
 
-                return RedirectToAction("Kullanicilar");
+                return RedirectToAction("Index", "Yaris");
             }
             else
             {
@@ -108,7 +108,7 @@ namespace YarisTakip.Controllers
 
                 _kullaniciRepository.Update(kullanici);
 
-                return RedirectToAction("Kullanicilar");
+                return RedirectToAction("Index", "Yaris");
             }
         }
 
