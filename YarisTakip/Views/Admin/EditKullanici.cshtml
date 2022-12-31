@@ -19,5 +19,8 @@
         <input asp-for="Resim" type="file" class="form-control" placeholder="Resim">
         <span asp-validation-for="Resim" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="form-group">
+        <input class="btn btn-outline-success float right" type="submit" value="Düzenle" />
+        <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="Kullanicilar">İptal</a>
+    </div>
 </form>
