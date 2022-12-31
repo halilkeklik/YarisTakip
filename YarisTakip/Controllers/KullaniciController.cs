@@ -22,6 +22,7 @@ namespace YarisTakip.Controllers
                 KullaniciAdi = kullanici.UserName,
                 KosuHizi = kullanici.KosuHizi,
                 Mesafe = kullanici.Mesafe,
+                ProfilResimURL = kullanici.ProfilResimUrl
             };
             return View(kullaniciDetayViewModel);
         }

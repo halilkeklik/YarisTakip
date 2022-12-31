@@ -1,0 +1,23 @@
+﻿@using YarisTakip.ViewModel
+@model EditKullaniciViewModel
+
+
+<form method="post" asp-action="EditKullanici" enctype="multipart/form-data">
+    <input type="hidden" id="Id" name="Id" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="KosuHizi">KosuHizi</label>
+        <input asp-for="KosuHizi" class="form-control" placeholder="KosuHizi">
+        <span asp-validation-for="KosuHizi" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Mesafe">Mesafe</label>
+        <input asp-for="Mesafe" class="form-control" placeholder="Mesafe">
+        <span asp-validation-for="Mesafe" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Resim">Profil Resmi</label>
+        <input asp-for="Resim" type="file" class="form-control" placeholder="Resim">
+        <span asp-validation-for="Resim" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

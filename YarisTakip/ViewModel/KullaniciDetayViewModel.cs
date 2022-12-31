@@ -6,5 +6,6 @@
         public string KullaniciAdi { get; set; }
         public int? KosuHizi { get; set; }
         public int? Mesafe { get; set; }
+        public string ProfilResimURL { get; set; }
     }
 }

@@ -1,11 +1,11 @@
 ﻿namespace YarisTakip.ViewModel
 {
-    public class KullaniciViewModel
+    public class EditKullaniciViewModel
     {
         public string Id { get; set; }
-        public string KullaniciAdi { get; set; }
         public int? KosuHizi { get; set; }
         public int? Mesafe { get; set; }
-        public string ProfilResimURL { get; set; }
+        public string? ProfilResimURL { get; set; }
+        public IFormFile Resim { get; set; }
     }
 }
