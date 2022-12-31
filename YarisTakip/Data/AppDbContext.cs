@@ -12,5 +12,7 @@ namespace YarisTakip.Data
         }
         public DbSet<Yaris> Yarislar { get; set; }
         public DbSet<Adres> Adresler { get; set; }
+        public DbSet<Kullanici> Kullanicilar { get; set; }
+        public DbSet<KullaniciYarisi> KullaniciYarisi { get; set; }
     }
 }

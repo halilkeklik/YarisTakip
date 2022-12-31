@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YarisTakip.Data;
 
@@ -11,9 +12,11 @@ using YarisTakip.Data;
 namespace YarisTakip.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221231070632_UpdateMigration")]
+    partial class UpdateMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,29 +262,6 @@ namespace YarisTakip.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("YarisTakip.Models.KullaniciYarisi", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("KullaniciId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("YarisId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("KullaniciId");
-
-                    b.HasIndex("YarisId");
-
-                    b.ToTable("KullaniciYarisi");
-                });
-
             modelBuilder.Entity("YarisTakip.Models.Yaris", b =>
                 {
                     b.Property<int>("Id")
@@ -379,21 +359,6 @@ namespace YarisTakip.Migrations
                     b.Navigation("Adres");
                 });
 
-            modelBuilder.Entity("YarisTakip.Models.KullaniciYarisi", b =>
-                {
-                    b.HasOne("YarisTakip.Models.Kullanici", "Kullanici")
-                        .WithMany("KullaniciYarisi")
-                        .HasForeignKey("KullaniciId");
-
-                    b.HasOne("YarisTakip.Models.Yaris", "Yaris")
-                        .WithMany("KullaniciYarisi")
-                        .HasForeignKey("YarisId");
-
-                    b.Navigation("Kullanici");
-
-                    b.Navigation("Yaris");
-                });
-
             modelBuilder.Entity("YarisTakip.Models.Yaris", b =>
                 {
                     b.HasOne("YarisTakip.Models.Adres", "Adres")
@@ -413,14 +378,7 @@ namespace YarisTakip.Migrations
 
             modelBuilder.Entity("YarisTakip.Models.Kullanici", b =>
                 {
-                    b.Navigation("KullaniciYarisi");
-
                     b.Navigation("Yaris");
-                });
-
-            modelBuilder.Entity("YarisTakip.Models.Yaris", b =>
-                {
-                    b.Navigation("KullaniciYarisi");
                 });
 #pragma warning restore 612, 618
         }

@@ -19,5 +19,6 @@ namespace YarisTakip.Models
         [ForeignKey("Kullanici")]
         public string? KullaniciId { get; set; }
         public Kullanici? Kullanici  { get; set; }
+        public ICollection<KullaniciYarisi> KullaniciYarisi { get; set; }
     }
 }

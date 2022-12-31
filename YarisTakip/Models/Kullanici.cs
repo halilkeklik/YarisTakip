@@ -13,5 +13,6 @@ namespace YarisTakip.Models
         public int? AdresId { get; set; }
         public Adres? Adres { get; set; }
         public ICollection<Yaris> Yaris { get; set; }
+        public ICollection<KullaniciYarisi> KullaniciYarisi { get; set; }
     }
 }

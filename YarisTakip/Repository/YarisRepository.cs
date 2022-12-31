@@ -41,6 +41,12 @@ namespace YarisTakip.Repository
         {
             return await _context.Yarislar.Include(i => i.Adres).FirstOrDefaultAsync(i => i.Id == id);
         }
+
+        public Task GetByIdAsync(int? yarisId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Yaris> GetByIdAsyncNoTracking(int id)
         {
             return await _context.Yarislar.Include(i => i.Adres).AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
