@@ -1,5 +1,7 @@
 ﻿using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Diagnostics;
 using System.Net;
 using YarisTakip.Interfaces;
@@ -28,11 +30,13 @@ namespace YarisTakip.Controllers
             Yaris yaris = await _yarisRespository.GetByIdAsync(id);
             return View(yaris);
         }
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> Create(CreateYarisViewModel yarisVM)
         {
@@ -61,7 +65,7 @@ namespace YarisTakip.Controllers
             }
             return View(yarisVM);
         }
-
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var yaris = await _yarisRespository.GetByIdAsync(id);
@@ -77,7 +81,7 @@ namespace YarisTakip.Controllers
             };
             return View(clubVM);
         }
-
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(int id, EditYarisViewModel yarisVM)
         {
@@ -123,21 +127,12 @@ namespace YarisTakip.Controllers
                 return View(yarisVM);
             }
         }
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var yarisDetails = await _yarisRespository.GetByIdAsync(id);
             if (yarisDetails == null) return View("Error");
             return View(yarisDetails);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteClub(int id)
-        {
-            var yarisDetails = await _yarisRespository.GetByIdAsync(id);
-            if (yarisDetails == null) return View("Error");
-
-            _yarisRespository.Delete(yarisDetails);
-            return RedirectToAction("Index");
         }
     }
 }

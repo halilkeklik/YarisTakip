@@ -6,9 +6,11 @@ using YarisTakip.Models;
 using YarisTakip.Services;
 using YarisTakip.ViewModel;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace YarisTakip.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         private readonly IYarisRepository _yarisRespository;
@@ -23,6 +25,7 @@ namespace YarisTakip.Controllers
             _httpContextAccessor = httpContextAccessor;
             _resimService= resimService;
         }
+
         public async Task<IActionResult> Yarislar()
         {
             IEnumerable<Yaris> yarislar = await _yarisRespository.GetAll();
@@ -51,7 +54,7 @@ namespace YarisTakip.Controllers
             using(var client=new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:7119/api/");
-                var deleteTask = client.DeleteAsync("KullaniciSilmeAPI/" + id);
+                var deleteTask = client.DeleteAsync("Kullanici/" + id);
                 var result = deleteTask.Result;
                 if (result.IsSuccessStatusCode)
                     return RedirectToAction("Kullanicilar");

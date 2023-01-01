@@ -20,9 +20,6 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Yaris" asp-action="Index">Anasayfa</a>
-                        </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
@@ -30,11 +27,14 @@
                                     <button class="btn btn-outline-primary">Profil</button>
                                 </form>
                             </li>
-                            <li class="nav-item">
-                                <form asp-area="" asp-controller="KullaniciYarisi" asp-action="Index" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier).Value">
-                                    <button class="btn btn-outline-primary">Yarışlarım</button>
-                                </form>
-                            </li>
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("kullanici"))
+                            {
+                                <li class="nav-item">
+                                    <form asp-area="" asp-controller="KullaniciYarisi" asp-action="Index" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier).Value">
+                                        <button class="btn btn-outline-primary">Yarışlarım</button>
+                                    </form>
+                                </li>
+                            }
                             @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
                             {
                                 <li class="nav-item">

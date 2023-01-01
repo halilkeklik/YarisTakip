@@ -3,7 +3,7 @@
 @model KullaniciDetayViewModel
 
 <div>
-    <form asp-area="" asp-controller="Admin" asp-action="EditKullanici" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier).Value">
+    <form asp-area="" asp-controller="Kullanici" asp-action="EditKullanici" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier).Value">
         <button class="btn btn-outline-primary">Profili Düzenle</button>
     </form>
 </div>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using YarisTakip.Data;
@@ -8,34 +9,18 @@ using YarisTakip.Repository;
 
 namespace YarisTakip.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize(Roles = "admin")]
+    [Route("api/Kullanici")]
     [ApiController]
-    public class KullaniciSilmeAPIController : ControllerBase
+    public class KullaniciAPIController : ControllerBase
     {
         private readonly AppDbContext _context;
         private readonly IKullaniciRepository _kullaniciRepository;
 
-        public KullaniciSilmeAPIController(AppDbContext appDbContext, IKullaniciRepository kullaniciRepository)
+        public KullaniciAPIController(AppDbContext appDbContext, IKullaniciRepository kullaniciRepository)
         {
             _context = appDbContext;
             _kullaniciRepository = kullaniciRepository;
-        }
-        [HttpGet]
-        public async Task<ActionResult<List<Kullanici>>> Get()
-        {
-            var y = await _context.Kullanicilar.ToListAsync();
-            if (y is null)
-            {
-                return NoContent();
-            }
-            return y;
-        }
-        [HttpPost]
-        public IActionResult Post([FromBody] Kullanici k)
-        {
-            _context.Kullanicilar.Add(k);
-            _context.SaveChanges();
-            return Ok();
         }
 
         [HttpDelete("{id}")]

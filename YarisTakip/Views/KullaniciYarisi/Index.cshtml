@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<YarisTakip.Models.KullaniciYarisi>
 
 @{
-    Layout = null;
+
 }
 
 <!DOCTYPE html>
@@ -12,30 +12,35 @@
     <title>Index</title>
 </head>
 <body>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Kullanici)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Yaris)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Kullanici.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Yaris.Id)
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yaris)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Yaris.YarisKategori)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Yaris.Baslik)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Yaris.YarisKategori)
+                    </td>
+                    <td>
+                        <a type="btn btn-success" asp-controller="Yaris" asp-action="Detail" asp-route-id="@item.Id"
+                                            class="btn btn-sm btn-outline-secondary">Detay</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </body>
 </html>

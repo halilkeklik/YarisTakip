@@ -32,8 +32,14 @@ namespace YarisTakip.Controllers
             _yarisRepository = yarisRepository;
             _httpContextAccessor = httpContextAccessor;
         }
+        [Authorize]
         public async Task<IActionResult> Index(string id)
         {
+            var kullaniciId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if(kullaniciId != id)
+            {
+                return RedirectToAction("Giris", "Hesap");
+            }
             var kullanici = await _kullaniciRepository.GetUserById(id);
             var appDbContext = _context.KullaniciYarisi.Where(k => k.KullaniciId == kullanici.Id).Include(k => k.Kullanici).Include(k => k.Yaris);
             return View(await appDbContext.ToListAsync());

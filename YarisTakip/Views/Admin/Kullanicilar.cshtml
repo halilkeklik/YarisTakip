@@ -1,10 +1,16 @@
 ﻿@using YarisTakip.ViewModel
 @model List<KullaniciViewModel>
+<!DOCTYPE html>
 
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container-fluid">
         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1"> 
+            <ul class="navbar-nav flex-grow-1">
                 <li class="nav-item">
                     <form asp-area="" asp-controller="Admin" asp-action="Yarislar">
                         <button class="btn btn-outline-primary">Yarışlar</button>
@@ -24,27 +30,44 @@
         </div>
     </div>
 </nav>
-<div class="album py-5 bg-light">
-    <div class="container">
-        <div class="row">
+<body>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                   KullanıcıAdı
+            </th>
+            <th>
+                    KosuHizi
+            </th>
+            <th>
+                    Mesafe
+            </th>
+            <th>
+                    Aksiyon
+            </th>
+        </tr>
+    </thead>
+    <tbody>
             @foreach (var item in Model)
             {
-                <div class="col-md-4">
-                    <div class="card mb-4 box-shadow">
-                        <div class="card-body">
-                            <p class="card-text">@item.KullaniciAdi</p>
-                            <div><div>Mesafe</div> <p class="card-text">@item.Mesafe</p></div>
-                            <div><div>Kosu Hızı</div> <p class="card-text">@item.KosuHizi</p> </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                    <a type="btn btn-success" asp-controller="Admin" asp-action="KullaniciSil" asp-route-id="@item.Id"
-                                   class="btn btn-danger">Sil</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <tr>
+                <td>
+                        @Html.DisplayFor(modelItem => item.KullaniciAdi)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.KosuHizi)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Mesafe)
+                </td>
+                <td>
+                        <a type="btn btn-success" asp-controller="Admin" asp-action="KullaniciSil" asp-route-id="@item.Id"
+                                       class="btn btn-danger">Sil</a>
+                </td>
+            </tr>
             }
-        </div>
-    </div>
-</div>
+    </tbody>
+</table>
+</body>
+</html>
