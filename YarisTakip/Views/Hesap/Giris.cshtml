@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-md-6 offset-3">
         <p>
-            <h4>Hesabınızı giriş yapınız</h4>
+            <h4>Hesabınıza giriş yapınız</h4>
         </p>
         @if (TempData["Error"] != null)
         {
@@ -30,7 +30,7 @@
                         <span asp-validation-for="Sifre" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <input class="btn btn-outline-success float right" type="submit" value="Giris Yap" />
+                        <input class="btn btn-outline-success float right" type="submit" value="Giriş Yap" />
                         <a class="btn btn-outline-danger" asp-controller="Yaris" asp-action="Index">İptal</a>
                     </div>
                 </form>

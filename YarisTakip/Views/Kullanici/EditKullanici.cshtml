@@ -5,8 +5,8 @@
 <form method="post" asp-action="EditKullanici" enctype="multipart/form-data">
     <input type="hidden" id="Id" name="Id" asp-for="Id" />
     <div class="form-group">
-        <label asp-for="KosuHizi">KosuHizi</label>
-        <input asp-for="KosuHizi" class="form-control" placeholder="KosuHizi">
+        <label asp-for="KosuHizi">Koşu hızı</label>
+        <input asp-for="KosuHizi" class="form-control" placeholder="Koşu hızı">
         <span asp-validation-for="KosuHizi" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -21,6 +21,6 @@
     </div>
     <div class="form-group">
         <input class="btn btn-outline-success float right" type="submit" value="Düzenle" />
-        <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="Kullanicilar">İptal</a>
+        <a class="btn btn-outline-danger" asp-controller="Yaris" asp-action="Index">İptal</a>
     </div>
 </form>

@@ -6,13 +6,13 @@
 <form method="post" asp-action="Delete" enctype="multipart/form-data">
     <input type="hidden" value="AddressId" id="AddressId" />
     <div class="form-group">
-        <label asp-for="Baslik">Baslik</label>
-        <input asp-for="Baslik" class="form-control" placeholder="Baslik">
+        <label asp-for="Baslik">Başlık</label>
+        <input asp-for="Baslik" class="form-control" placeholder="Başlık">
         <span asp-validation-for="Baslik" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Aciklama">Aciklama</label>
-        <input asp-for="Aciklama" class="form-control" placeholder="Aciklama">
+        <label asp-for="Aciklama">Açıklama</label>
+        <input asp-for="Aciklama" class="form-control" placeholder="Açıklama">
         <span asp-validation-for="Aciklama" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -21,7 +21,7 @@
         <span asp-validation-for="Resim" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="YarisKategori">YarisKategori</label>
+        <label asp-for="YarisKategori">Yarış Kategori</label>
         <select asp-for="YarisKategori" asp-items="@Html.GetEnumSelectList<YarisKategori>()" class="form-control">
             <option selected="selected" value="">--Select--</option>
         </select>
@@ -33,13 +33,13 @@
         <span asp-validation-for="Adres.Sokak" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Adres.Sehir">City</label>
-        <input asp-for="Adres.Sehir" class="form-control" placeholder="Sehir">
+        <label asp-for="Adres.Sehir">Şehir</label>
+        <input asp-for="Adres.Sehir" class="form-control" placeholder="Şehir">
         <span asp-validation-for="Adres.Sehir" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Adres.Ulke">Ulke</label>
-        <input asp-for="Adres.Ulke" class="form-control" placeholder="Ulke">
+        <label asp-for="Adres.Ulke">Ülke</label>
+        <input asp-for="Adres.Ulke" class="form-control" placeholder="Ülke">
         <span asp-validation-for="Adres.Ulke" class="text-danger"></span>
     </div>
 </form>
