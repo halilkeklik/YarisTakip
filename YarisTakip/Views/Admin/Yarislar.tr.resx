@@ -136,15 +136,12 @@
     <value>Düzenle</value>
   </data>
   <data name="tablo1" xml:space="preserve">
-    <value>Kullanıcı Adı</value>
+    <value>Yarış</value>
   </data>
   <data name="tablo2" xml:space="preserve">
-    <value>Koşu Hızı</value>
+    <value>Yarış Kategori</value>
   </data>
   <data name="tablo3" xml:space="preserve">
-    <value>Mesafe</value>
-  </data>
-  <data name="tablo4" xml:space="preserve">
     <value>Aksiyon</value>
   </data>
 </root>

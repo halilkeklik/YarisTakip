@@ -129,13 +129,22 @@
   <data name="button4" xml:space="preserve">
     <value>Sil</value>
   </data>
+  <data name="button5" xml:space="preserve">
+    <value>Detay</value>
+  </data>
+  <data name="button6" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
   <data name="tablo1" xml:space="preserve">
-    <value>Yarış</value>
+    <value>Kullanıcı Adı</value>
   </data>
   <data name="tablo2" xml:space="preserve">
-    <value>Yarış Kategori</value>
+    <value>Koşu Hızı</value>
   </data>
   <data name="tablo3" xml:space="preserve">
+    <value>Mesafe</value>
+  </data>
+  <data name="tablo4" xml:space="preserve">
     <value>Aksiyon</value>
   </data>
 </root>
