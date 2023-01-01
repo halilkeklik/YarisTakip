@@ -1,26 +1,38 @@
 ﻿@using YarisTakip.ViewModel
+@using Microsoft.AspNetCore.Localization;
+@using Microsoft.Extensions.Options;
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
 @model EditKullaniciViewModel
+@inject IViewLocalizer ViewLocalizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+}
 
 
 <form method="post" asp-action="EditKullanici" enctype="multipart/form-data">
     <input type="hidden" id="Id" name="Id" asp-for="Id" />
     <div class="form-group">
-        <label asp-for="KosuHizi">Koşu hızı</label>
-        <input asp-for="KosuHizi" class="form-control" placeholder="Koşu hızı">
+        <label asp-for="KosuHizi">@ViewLocalizer["aciklama1"]</label>
+        <input asp-for="KosuHizi" class="form-control" placeholder="@ViewLocalizer["aciklama1"]">
         <span asp-validation-for="KosuHizi" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Mesafe">Mesafe</label>
-        <input asp-for="Mesafe" class="form-control" placeholder="Mesafe">
+        <label asp-for="Mesafe">@ViewLocalizer["aciklama2"]</label>
+        <input asp-for="Mesafe" class="form-control" placeholder="@ViewLocalizer["aciklama2"]">
         <span asp-validation-for="Mesafe" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Resim">Profil Resmi</label>
-        <input asp-for="Resim" type="file" class="form-control" placeholder="Resim">
+        <label asp-for="Resim">@ViewLocalizer["aciklama3"]</label>
+        <input asp-for="Resim" type="file" class="form-control" placeholder="@ViewLocalizer["aciklama3"]">
         <span asp-validation-for="Resim" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <input class="btn btn-outline-success float right" type="submit" value="Düzenle" />
-        <a class="btn btn-outline-danger" asp-controller="Yaris" asp-action="Index">İptal</a>
+        <input class="btn btn-outline-success float right" type="submit" value="@ViewLocalizer["button1"]" />
+        <a class="btn btn-outline-danger" asp-controller="Yaris" asp-action="Index">@ViewLocalizer["button2"]</a>
     </div>
 </form>

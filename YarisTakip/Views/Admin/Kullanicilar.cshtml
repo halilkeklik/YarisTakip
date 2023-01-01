@@ -1,5 +1,17 @@
-﻿@using YarisTakip.ViewModel
+﻿@using Microsoft.AspNetCore.Localization;
+@using Microsoft.Extensions.Options;
+@using YarisTakip.ViewModel
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
 @model List<KullaniciViewModel>
+@inject IViewLocalizer ViewLocalizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+}
 <!DOCTYPE html>
 
 <html>
@@ -13,17 +25,17 @@
             <ul class="navbar-nav flex-grow-1">
                 <li class="nav-item">
                     <form asp-area="" asp-controller="Admin" asp-action="Yarislar">
-                        <button class="btn btn-outline-primary">Yarışlar</button>
+                        <button class="btn btn-outline-primary">@ViewLocalizer["button1"]</button>
                     </form>
                 </li>
                 <li class="nav-item">
                     <form asp-area="" asp-controller="Admin" asp-action="Kullanicilar">
-                        <button class="btn btn-outline-primary">Kullanıcılar</button>
+                        <button class="btn btn-outline-primary">@ViewLocalizer["button2"]</button>
                     </form>
                 </li>
                 <li class="nav-item">
                     <form asp-area="" asp-controller="Yaris" asp-action="Create">
-                        <button class="btn btn-outline-primary">Yarış Yarat</button>
+                        <button class="btn btn-outline-primary">@ViewLocalizer["button3"]</button>
                     </form>
                 </li>
             </ul>
@@ -35,16 +47,16 @@
     <thead>
         <tr>
             <th>
-                   KullanıcıAdı
+                    @ViewLocalizer["tablo1"]
             </th>
             <th>
-                    KosuHizi
+                    @ViewLocalizer["tablo2"]
             </th>
             <th>
-                    Mesafe
+                    @ViewLocalizer["tablo3"]
             </th>
             <th>
-                    Aksiyon
+                    @ViewLocalizer["tablo4"]
             </th>
         </tr>
     </thead>
@@ -63,7 +75,7 @@
                 </td>
                 <td>
                         <a type="btn btn-success" asp-controller="Admin" asp-action="KullaniciSil" asp-route-id="@item.Id"
-                                       class="btn btn-danger">Sil</a>
+                       class="btn btn-danger">@ViewLocalizer["button4"]</a>
                 </td>
             </tr>
             }

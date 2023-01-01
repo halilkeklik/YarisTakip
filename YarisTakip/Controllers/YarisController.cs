@@ -1,9 +1,12 @@
 ﻿using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Data;
 using System.Diagnostics;
 using System.Net;
+using YarisTakip.Data;
 using YarisTakip.Interfaces;
 using YarisTakip.Models;
 using YarisTakip.ViewModel;
@@ -14,11 +17,13 @@ namespace YarisTakip.Controllers
     {
         private readonly IYarisRepository _yarisRespository;
         private readonly IResimService _resimService;
+        private readonly AppDbContext _context;
 
-        public YarisController(IYarisRepository yarisRespository, IResimService resimService)
+        public YarisController(IYarisRepository yarisRespository, IResimService resimService, AppDbContext context)
         {
             _yarisRespository = yarisRespository;
             _resimService = resimService;
+            _context = context;
         }
         public async Task<IActionResult> Index()
         {
@@ -128,11 +133,18 @@ namespace YarisTakip.Controllers
             }
         }
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int Id)
         {
-            var yarisDetails = await _yarisRespository.GetByIdAsync(id);
-            if (yarisDetails == null) return View("Error");
-            return View(yarisDetails);
+            var yarisDetails = await _yarisRespository.GetByIdAsync(Id);
+            if (yarisDetails == null) return RedirectToAction("Yarislar", "Admin");
+            var appContext =  _context.KullaniciYarisi.FirstOrDefault(k => k.YarisId == yarisDetails.Id);
+            if (appContext == null)
+            {
+                _context.Remove(yarisDetails);
+                _context.SaveChanges();
+                return RedirectToAction("Yarislar", "Admin");
+            }
+                return RedirectToAction("Yarislar", "Admin");
         }
     }
 }

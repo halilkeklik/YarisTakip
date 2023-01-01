@@ -1,46 +1,57 @@
-﻿@using YarisTakip.Data.Enum
+﻿@using Microsoft.AspNetCore.Localization;
+@using Microsoft.Extensions.Options;
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using YarisTakip.Data.Enum
 @using YarisTakip.ViewModel
 @model EditYarisViewModel
-
+@inject IViewLocalizer ViewLocalizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+}
 
 <form method="post" asp-action="Edit" enctype="multipart/form-data">
     <input type="hidden" value="AddressId" id="AddressId" />
     <div class="form-group">
-        <label asp-for="Baslik">Başlık</label>
-        <input asp-for="Baslik" class="form-control" placeholder="Başlık">
+        <label asp-for="Baslik">@ViewLocalizer["aciklama1"]</label>
+        <input asp-for="Baslik" class="form-control" placeholder=@ViewLocalizer["aciklama1"]>
         <span asp-validation-for="Baslik" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Aciklama">Açıklama</label>
-        <input asp-for="Aciklama" class="form-control" placeholder="Açıklama">
+        <label asp-for="Aciklama">@ViewLocalizer["aciklama2"]</label>
+        <input asp-for="Aciklama" class="form-control" placeholder=@ViewLocalizer["aciklama2"]>
         <span asp-validation-for="Aciklama" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Resim">Resim</label>
-        <input asp-for="Resim" type="file" class="form-control" placeholder="Resim">
+        <label asp-for="Resim">@ViewLocalizer["aciklama3"]</label>
+        <input asp-for="Resim" type="file" class="form-control" placeholder=@ViewLocalizer["aciklama3"]>
         <span asp-validation-for="Resim" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="YarisKategori">Yarış Kategori</label>
+        <label asp-for="YarisKategori">@ViewLocalizer["aciklama4"]</label>
         <select asp-for="YarisKategori" asp-items="@Html.GetEnumSelectList<YarisKategori>()" class="form-control">
             <option selected="selected" value="">--Select--</option>
         </select>
         <span asp-validation-for="YarisKategori" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Adres.Sokak">Sokak</label>
-        <input asp-for="Adres.Sokak" class="form-control" placeholder="Sokak">
+        <label asp-for="Adres.Sokak">@ViewLocalizer["aciklama5"]</label>
+        <input asp-for="Adres.Sokak" class="form-control" placeholder=@ViewLocalizer["aciklama5"]>
         <span asp-validation-for="Adres.Sokak" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Adres.Sehir">Şehir</label>
-        <input asp-for="Adres.Sehir" class="form-control" placeholder="Şehir">
+        <label asp-for="Adres.Sehir">@ViewLocalizer["aciklama6"]</label>
+        <input asp-for="Adres.Sehir" class="form-control" placeholder=@ViewLocalizer["aciklama6"]>
         <span asp-validation-for="Adres.Sehir" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Adres.Ulke">Ülke</label>
-        <input asp-for="Adres.Ulke" class="form-control" placeholder="Ülke">
+        <label asp-for="Adres.Ulke">@ViewLocalizer["aciklama7"]</label>
+        <input asp-for="Adres.Ulke" class="form-control" placeholder=@ViewLocalizer["aciklama7"]>
         <span asp-validation-for="Adres.Ulke" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Onayla</button>
+    <button type="submit" class="btn btn-primary">@ViewLocalizer["button"]</button>
 </form>

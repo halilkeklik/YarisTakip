@@ -1,16 +1,28 @@
-﻿@using System.Security.Claims;
-@using YarisTakip.ViewModel
+﻿@using YarisTakip.ViewModel
+@using Microsoft.AspNetCore.Localization;
+@using Microsoft.Extensions.Options;
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using System.Security.Claims;
 @model KullaniciDetayViewModel
+@inject IViewLocalizer ViewLocalizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+}
 
 <div>
     <form asp-area="" asp-controller="Kullanici" asp-action="EditKullanici" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier).Value">
-        <button class="btn btn-outline-primary">Profili Düzenle</button>
+        <button class="btn btn-outline-primary">@ViewLocalizer["button"]</button>
     </form>
 </div>
 <div class="container">
 
     <h1 class="my-4">
-        <small>Profilim</small>
+        <small>@ViewLocalizer["aciklama1"]</small>
     </h1>
 
     <div class="row">
@@ -21,9 +33,9 @@
 
         <div class="col-md-4">
             <h3 class="my-3">@Model.KullaniciAdi</h3>
-            <h3>Mesafe</h3>
+            <h3>@ViewLocalizer["aciklama2"]</h3>
             <h3 class="my-3">@Model.Mesafe</h3>
-            <h3>Koşu Hızı</h3>
+            <h3>@ViewLocalizer["aciklama3"]</h3>
             <h3 class ="my-3">@Model.KosuHizi</h3>
         </div>
 

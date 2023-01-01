@@ -1,8 +1,15 @@
-﻿@model IEnumerable<Yaris>
-@*
-        For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-    *@
+﻿@using Microsoft.AspNetCore.Localization;
+@using Microsoft.Extensions.Options;
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@model IEnumerable<Yaris>
+@inject IViewLocalizer ViewLocalizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
 @{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
 }
 <!DOCTYPE html>
 
@@ -17,17 +24,17 @@
             <ul class="navbar-nav flex-grow-1">
                 <li class="nav-item">
                     <form asp-area="" asp-controller="Admin" asp-action="Yarislar">
-                        <button class="btn btn-outline-primary">Yarışlar</button>
+                        <button class="btn btn-outline-primary">@ViewLocalizer["button1"]</button>
                     </form>
                 </li>
                 <li class="nav-item">
                     <form asp-area="" asp-controller="Admin" asp-action="Kullanicilar">
-                        <button class="btn btn-outline-primary">Kullanıcılar</button>
+                        <button class="btn btn-outline-primary">@ViewLocalizer["button2"]</button>
                     </form>
                 </li>
                 <li class="nav-item">
                     <form asp-area="" asp-controller="Yaris" asp-action="Create">
-                        <button class="btn btn-outline-primary">Yarış Yarat</button>
+                        <button class="btn btn-outline-primary">@ViewLocalizer["button3"]</button>
                     </form>
                 </li>
             </ul>
@@ -39,12 +46,14 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Baslik)
+                    @ViewLocalizer["tablo1"]
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.YarisKategori)
+                    @ViewLocalizer["tablo2"]
                 </th>
-                <th></th>
+                <th>
+                    @ViewLocalizer["tablo3"]
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -59,7 +68,11 @@
                     </td>
                     <td>
                         <a type="btn btn-success" asp-controller="Yaris" asp-action="Detail" asp-route-id="@item.Id"
-                       class="btn btn-sm btn-outline-secondary">Detay</a>
+                       class="btn btn-sm btn-outline-secondary">@ViewLocalizer["button5"]</a>
+                        <a type="btn btn-success" asp-controller="Yaris" asp-action="Delete" asp-route-id="@item.Id"
+                        class="btn btn-danger">@ViewLocalizer["button4"]</a>
+                        <a type="btn btn-success" asp-controller="Yaris" asp-action="Edit" asp-route-id="@item.Id"
+                       class="btn btn-danger">@ViewLocalizer["button6"]</a>
                     </td>
                 </tr>
             }

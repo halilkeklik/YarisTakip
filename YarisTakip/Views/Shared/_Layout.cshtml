@@ -1,4 +1,16 @@
-﻿@using System.Security.Claims;
+﻿@using Microsoft.AspNetCore.Localization;
+@using Microsoft.Extensions.Options;
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using System.Security.Claims;
+@inject IViewLocalizer ViewLocalizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +25,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Yaris" asp-action="Index">YarisTakip</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Yaris" asp-action="Index">@ViewLocalizer["title"]</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -24,14 +36,14 @@
                         {
                             <li class="nav-item">
                                 <form asp-area="" asp-controller="Kullanici" asp-action="Profil" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier).Value">
-                                    <button class="btn btn-outline-primary">Profil</button>
+                                    <button class="btn btn-outline-primary">@ViewLocalizer["button1"]</button>
                                 </form>
                             </li>
                             @if (User.Identity.IsAuthenticated && User.IsInRole("kullanici"))
                             {
                                 <li class="nav-item">
                                     <form asp-area="" asp-controller="KullaniciYarisi" asp-action="Index" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier).Value">
-                                        <button class="btn btn-outline-primary">Yarışlarım</button>
+                                        <button class="btn btn-outline-primary">@ViewLocalizer["button2"]</button>
                                     </form>
                                 </li>
                             }
@@ -39,23 +51,23 @@
                             {
                                 <li class="nav-item">
                                     <form asp-area="" asp-controller="Admin" asp-action="Yarislar">
-                                        <button class="btn btn-outline-primary">Admin</button>
+                                        <button class="btn btn-outline-primary">@ViewLocalizer["button3"]</button>
                                     </form>
                                 </li>
                             }
                             <li class="nav-item">
                                 <form asp-area="" asp-controller="Hesap" asp-action="Cikis">
-                                    <button class="btn btn-outline-danger">Çıkış Yap</button>
+                                    <button class="btn btn-outline-danger">@ViewLocalizer["button4"]</button>
                                 </form>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Hesap" asp-action="Giris">Giriş</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Hesap" asp-action="Giris">@ViewLocalizer["button5"]</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Hesap" asp-action="Kayit">Kayıt ol</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Hesap" asp-action="Kayit">@ViewLocalizer["button6"]</a>
                             </li>
                         }
                     </ul>
@@ -71,7 +83,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            Proje Github Linki <a href="https://github.com/halilkeklik/YarisTakip">Github Linki</a>
+            @ViewLocalizer["aciklama"] <a href="https://github.com/halilkeklik/YarisTakip">Github Link</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

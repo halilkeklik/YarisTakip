@@ -1,18 +1,27 @@
 ﻿@using YarisTakip.ViewModel
+@using Microsoft.AspNetCore.Localization;
+@using Microsoft.Extensions.Options;
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
 @model GirisViewModel
-
+@inject IViewLocalizer ViewLocalizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
 @{
-    ViewData["Title"] = "Giriş";
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
 }
+
 <div class="row">
     <div class="col-md-6 offset-3">
         <p>
-            <h4>Hesabınıza giriş yapınız</h4>
+            <h4>@ViewLocalizer["baslik"]</h4>
         </p>
         @if (TempData["Error"] != null)
         {
             <div class="col-md-12 alert alert-danger">
-                <span><b>Üzgünüz!</b> - @TempData["Error"]</span>
+                <span><b>@ViewLocalizer["uyari"]</b> - @TempData["Error"]</span>
             </div>
         }
         <div class="row">
@@ -20,18 +29,18 @@
                 <form asp-action="Giris">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
-                        <label asp-for="EmailAdres" class="control-label"></label>
+                        <label asp-for="EmailAdres" class="control-label">@ViewLocalizer["aciklama1"]</label>
                         <input asp-for="EmailAdres" class="form-control">
                         <span asp-validation-for="EmailAdres" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Sifre" class="control-label"></label>
+                        <label asp-for="Sifre" class="control-label">@ViewLocalizer["aciklama2"]</label>
                         <input asp-for="Sifre" class="form-control" />
                         <span asp-validation-for="Sifre" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <input class="btn btn-outline-success float right" type="submit" value="Giriş Yap" />
-                        <a class="btn btn-outline-danger" asp-controller="Yaris" asp-action="Index">İptal</a>
+                        <input class="btn btn-outline-success float right" type="submit" value="@ViewLocalizer["button1"]" />
+                        <a class="btn btn-outline-danger" asp-controller="Yaris" asp-action="Index">@ViewLocalizer["button2"]</a>
                     </div>
                 </form>
             </div>

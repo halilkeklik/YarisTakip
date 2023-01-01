@@ -1,10 +1,17 @@
-﻿@using System.Security.Claims;
+﻿@using Microsoft.AspNetCore.Localization;
+@using Microsoft.Extensions.Options;
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using System.Security.Claims;
 @model IEnumerable<Yaris>
-@*
-        For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-    *@
-    @{
-    }
+@inject IViewLocalizer ViewLocalizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+}
 <div class="album py-5 bg-light">
     <div class="container">
         <div class="row">
@@ -19,18 +26,18 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a type="btn btn-success" asp-controller="Yaris" asp-action="Detail" asp-route-id="@item.Id"
-                                            class="btn btn-sm btn-outline-secondary">Detay</a>
+                                   class="btn btn-sm btn-outline-secondary">@ViewLocalizer["button1"]</a>
                                     @if (User.Identity.IsAuthenticated && User.IsInRole("kullanici"))
                                     {
                                         <a type="btn btn-success" asp-controller="KullaniciYarisi" asp-action="YarisKatil" asp-route-id="@item.Id"
-                                                class="btn btn-sm btn-outline-secondary">Yarışa Katıl</a>   
+                                   class="btn btn-sm btn-outline-secondary">@ViewLocalizer["button2"]</a>
                                     }
                                     @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
                                     {
                                         <a type="btn btn-success" asp-controller="Yaris" asp-action="Edit" asp-route-id="@item.Id"
-                                                class="btn btn-sm btn-outline-secondary">Düzenle</a>
+                                   class="btn btn-sm btn-outline-secondary">@ViewLocalizer["button3"]</a>
                                         <a type="btn btn-success" asp-controller="Yaris" asp-action="Delete" asp-route-id="@item.Id"
-                                                class="btn btn-outline-danger">Sil</a>                                        
+                                                class="btn btn-outline-danger">@ViewLocalizer["button4"]</a>                                        
                                     }
                                 </div>
                                 <small class="text-muted">@item.YarisKategori</small>

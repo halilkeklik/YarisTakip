@@ -1,28 +1,32 @@
-﻿@model IEnumerable<YarisTakip.Models.KullaniciYarisi>
-
+﻿@using Microsoft.AspNetCore.Localization;
+@using Microsoft.Extensions.Options;
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@model IEnumerable<YarisTakip.Models.KullaniciYarisi>
+@inject IViewLocalizer ViewLocalizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
 @{
-
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
 }
 
 <!DOCTYPE html>
 
 <html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
 <body>
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    Yarış
+                    @ViewLocalizer["tablo1"]
                 </th>
                 <th>
-                    Yarış Kategori
+                    @ViewLocalizer["tablo2"]
                 </th>
                 <th>
-                    Aksiyon
+                    @ViewLocalizer["tablo3"]
                 </th>
             </tr>
         </thead>
@@ -38,7 +42,7 @@
                     </td>
                     <td>
                         <a type="btn btn-success" asp-controller="Yaris" asp-action="Detail" asp-route-id="@item.Id"
-                                            class="btn btn-sm btn-outline-secondary">Detay</a>
+                       class="btn btn-sm btn-outline-secondary">@ViewLocalizer["button"]</a>
                     </td>
                 </tr>
             }
