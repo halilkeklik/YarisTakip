@@ -7,6 +7,7 @@ using YarisTakip.Services;
 using YarisTakip.ViewModel;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using System.Net;
 
 namespace YarisTakip.Controllers
 {
@@ -51,9 +52,13 @@ namespace YarisTakip.Controllers
 
         public  ActionResult KullaniciSil(string id)
         {
-            using(var client=new HttpClient())
+            var baseAddress = new Uri("https://localhost");
+            var cookieContainer = new CookieContainer();
+            using (var handler = new HttpClientHandler() { CookieContainer = cookieContainer })
+            using (var client=new HttpClient(handler))
             {
                 client.BaseAddress = new Uri("https://localhost:7119/api/");
+                cookieContainer.Add(baseAddress, new Cookie(".AspNetCore.Identity.Application", Request.Cookies[".AspNetCore.Identity.Application"]));
                 var deleteTask = client.DeleteAsync("Kullanici/" + id);
                 var result = deleteTask.Result;
                 if (result.IsSuccessStatusCode)
