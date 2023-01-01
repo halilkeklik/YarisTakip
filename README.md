@@ -4,3 +4,8 @@ Admin ise bütün kullanıcıları ve yarışları görüntülebilir. Admin gör
 Admin kullanıcısı
 * B171210050@sakarya.edu.tr
 * Sau123.
+
+## Vakitim olsaydı yapılacaklar
+* Hatalar için düzgün mesajların gösterilmesi.
+* ForeignKey'ler için casced'lerin yazılması(Biribirine bağlı objeleri silmeye çalışırken hata alabiliyoruz).
+* Daha iyi görsellerin yapılması.
